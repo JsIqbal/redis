@@ -174,3 +174,7 @@ REDIS_PW=
 -   HKEYS: gives all the keys under the mother key: HKEYS company
 -   HVALS: gives all the values under all the keys under the mother key : HVALS company
 -   HMSET: can set a new key and value under the mother key: HMSET company newKey "new value" [The same cane be achieved using HINCRBY]
+
+### Section 6: Redis has gotchas!
+
+-   please check out the file in sandbox: index.ts

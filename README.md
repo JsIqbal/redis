@@ -104,7 +104,7 @@ GET message
 
 ---
 
-### Section #: E-commerce App Setup
+### Section 3: E-commerce App Setup
 
 ### Law of caching:
 
@@ -120,3 +120,27 @@ GET message
 -   Tip - use functions to generate your key names so you never make a typo
 -   Extremely common practice is to use a ':' to separate different parts of the key
 -   Small twist on common practice - we are going to use a # before unique ID's to make implementing search easier : users#45
+
+### Section 4: Local redis Setup
+
+#### Install docker desktop
+
+-   run
+
+```bash
+docker run -d --name redis-stack-server -p 6379:6379 redis/redis-stack-server:latest
+```
+
+-   moderate
+
+```bash
+docker exec -it redis-stack-server redis-cli
+```
+
+-   connection for local redis with rbay:
+
+```env
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_PW=
+```

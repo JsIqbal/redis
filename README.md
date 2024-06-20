@@ -144,3 +144,33 @@ REDIS_HOST=localhost
 REDIS_PORT=6379
 REDIS_PW=
 ```
+
+### Section 5: Hash Data Structures
+
+#### Initial:
+
+-   A hash in redis can be an object of key value pairs but they will not be deeply nested:
+
+    -   will work:
+        ```json
+        {
+            "name": "IQ & CO.",
+            "created": 1989,
+            "industry": "Technology"
+        }
+        ```
+
+-   in redis hashes there can only be number and strings as value for the keys
+
+-   HSET: set multiple key value pare under a mother key : HSET company name iq industry tech age 12.3 estd 1945
+-   HGET: get a single key value : HGET compnay industry
+-   HGETALL: gets all the key values from a mother key : HGETALL company
+-   HEXISTS: checks if a key under monther key exists: HEXISTS company age
+-   DEL: deleted all the key value pair under a mother key: DEL company
+-   HDEL: deletes a single key value under mother key : HDEL company age
+-   HINCRBY: increament a certain key's value under mother key which must be an integer : HINCRBY company estd 10
+-   HINCRBYFLOAT: increament a certain key's value under mother key which must be an float : HINCRBYFLOAT company a 10.5
+-   HSTRLEN: gives the length of the value under a key under mother key : HSTRLEN company industry
+-   HKEYS: gives all the keys under the mother key: HKEYS company
+-   HVALS: gives all the values under all the keys under the mother key : HVALS company
+-   HMSET: can set a new key and value under the mother key: HMSET company newKey "new value" [The same cane be achieved using HINCRBY]

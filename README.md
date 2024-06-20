@@ -39,7 +39,7 @@ You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
-
+---
 
 ### Section 1: Get started here
 
@@ -60,6 +60,8 @@ You can preview the production build with `npm run preview`.
 ```bash
     SET key value
 ```
+
+---
 
 ### Section 2: Commands for Adding and Querying data
 
@@ -99,3 +101,22 @@ GET message
 -   INCRBYFLOAT: increament a number float wise limit : INCRBYFLOAT key -2.55
 
 *   Redis is synchronous and single threaded by nature.
+
+---
+
+### Section #: E-commerce App Setup
+
+### Law of caching:
+
+#### Redis Design Methodology:
+
+-   Figure out what queries we need to answer
+-   Structure data to best answer those queries
+
+#### Key naming conventions:
+
+-   Keys should be unique
+-   Other engineers should understand what a key is for
+-   Tip - use functions to generate your key names so you never make a typo
+-   Extremely common practice is to use a ':' to separate different parts of the key
+-   Small twist on common practice - we are going to use a # before unique ID's to make implementing search easier : users#45

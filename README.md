@@ -145,6 +145,24 @@ REDIS_PORT=6379
 REDIS_PW=
 ```
 
+-   If you want to connect RBook to your local copy of Redis, you will need to run RBook locally.
+
+    -   To run RBook locally, run npx rbook at your terminal.
+
+    -   Navigate to localhost:3050
+
+    -   Open the connection settings window
+
+    -   Enter a host of 'localhost'
+
+    -   Enter a port of 6379
+
+    -   Leave the password blank
+
+    -   When running RBook locally, any notebooks you create will be added to the folder you ran npx rbook in.
+
+---
+
 ### Section 5: Hash Data Structures
 
 #### Initial:
@@ -178,3 +196,28 @@ REDIS_PW=
 ### Section 6: Redis has gotchas!
 
 -   please check out the file in sandbox: index.ts
+
+### Section 7: Powerful design pattern
+
+-   SQL Database Design Methodology
+
+    -   Put the data in tables
+    -   Figure out how we will query it
+
+-   Redis Design Methodology
+
+    -   Figure out what queries we need to answer
+    -   Structure data to best answer those queries
+
+-   Reasons to Store as Hash
+
+    -   The record has many attributes
+    -   A collection of these records have to be sorted many different ways
+    -   Often need to access a single record at a time
+
+-   Don't Use Hashes When...
+
+    -   The record is only for counting or enforcing uniqueness
+    -   Record stores only one or two attributes
+    -   Used only for creating relations between different records
+    -   The record is only used for time series data

@@ -221,3 +221,26 @@ REDIS_PW=
     -   Record stores only one or two attributes
     -   Used only for creating relations between different records
     -   The record is only used for time series data
+
+---
+
+### Section 8: Pipelining commands
+
+-   Redis does not give power to fetch multiple hashes(IDs) in one single command
+
+    -   Possible solutions [1]:
+        -   Loop through the Ids and execute HGETALL and get the records one by one.
+        -   We create a hash for each id and execute the HGETALL command each time of creating the id. meaning:
+            -   the loop is running
+            -   the loop is creating hash
+            -   the loop is executing individual command
+        -   !!! THIS IS NOT EFFECIENT
+    -   Possible solutions [2]:
+        -   We create batch of command using loop
+        -   we execute HGETALL command for all the ids in one go.
+            -   we create hash with ids in a loop but
+            -   we tell the loop not to send the request to redis yet
+            -   we complete the loop
+            -   we complete creating the batch of HGETALL
+            -   we give the list of request to redis
+            -   redis gives us a list of records

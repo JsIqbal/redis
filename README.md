@@ -244,3 +244,19 @@ REDIS_PW=
             -   we complete creating the batch of HGETALL
             -   we give the list of request to redis
             -   redis gives us a list of records
+
+---
+
+### Section 9: Enforcing uniqueness with set
+
+-   Redis has a special feature called set
+
+    -   In set:
+
+        -   we can add unique value in a set
+
+            -   If we keep adding the same value its not going to be added in the set
+
+            *   Example:
+                -   SADD: Add a unique value with a key: SADD name Iqbal -> will return 1 -> Its going to add iqbal to a set of name.
+                    -   if we try to add SADD name Iqbal -> will return 0 -> Its not going to add any value in the key of name.

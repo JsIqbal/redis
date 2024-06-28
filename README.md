@@ -253,10 +253,29 @@ REDIS_PW=
 
     -   In set:
 
-        -   we can add unique value in a set
+        -   [SADD] we can add unique value in a set
 
             -   If we keep adding the same value its not going to be added in the set
 
             *   Example:
                 -   SADD: Add a unique value with a key: SADD name Iqbal -> will return 1 -> Its going to add iqbal to a set of name.
                     -   if we try to add SADD name Iqbal -> will return 0 -> Its not going to add any value in the key of name.
+
+        -   [SUNION] we can keep and show the same values existing in saparate sets
+
+            -   SADD colors:1 red blue green
+            -   SADD colors:2 yellow purple white
+            -   SADD colors:3 shen ren ken
+
+                -   SUNION colors:1 colors:2 colors:3 -> will give us the combined values of unions from the sets:
+                    -   [
+                        "red",
+                        "blue",
+                        "green",
+                        "yellow",
+                        "purple",
+                        "white",
+                        "shen",
+                        "ren",
+                        "ken"
+                        ]

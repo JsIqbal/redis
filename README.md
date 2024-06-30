@@ -303,3 +303,5 @@ REDIS_PW=
                         1,
                         1
                         ]
+                -   SCARD color:result -> this gives the number of elements in a key
+                -   SSCAN colors:1 0 COUNT 2 -> this gives the paginated data. 0 is the page number in here. 2 is the number of element to show in a page.

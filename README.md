@@ -264,10 +264,11 @@ REDIS_PW=
         -   [SUNION] we can keep and show the same values existing in saparate sets
 
             -   SADD colors:1 red blue green
-            -   SADD colors:2 yellow purple white
-            -   SADD colors:3 shen ren ken
+            -   SADD colors:2 yellow purple green
+            -   SADD colors:3 shen green ken
 
                 -   SUNION colors:1 colors:2 colors:3 -> will give us the combined values of unions from the sets:
+
                     -   [
                         "red",
                         "blue",
@@ -279,3 +280,21 @@ REDIS_PW=
                         "ren",
                         "ken"
                         ]
+
+                -   SINTER colors:1 colors:2 colors:3 -> will give us only the common value from all the sets
+                    -   [
+                        "blue"
+                        ]
+                -   SDIFF colors:1 colors:2 colors:3 -> will only give us the unique value that only exist in x but not in n numbers in sets.
+
+                    -   [
+                        "red"
+                        ]
+
+                -   SINTERSTORE color:result colors:1 colors:2 colors:3 -> will store the common values in a new key
+                -   SMEMBERS color:result -> will show the values stored in the new key
+                    [
+                    "blue",
+                    "green"
+                    ]
+                -   SISMENBER color:result blue -> will give 1 if blue exists on color:result key and 0 if not exist

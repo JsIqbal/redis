@@ -298,3 +298,8 @@ REDIS_PW=
                     "green"
                     ]
                 -   SISMENBER color:result blue -> will give 1 if blue exists on color:result key and 0 if not exist
+                -   SMISMEMBER color:result blue green -> will give us an array of true and false.
+                    -   [
+                        1,
+                        1
+                        ]

@@ -307,7 +307,7 @@ REDIS_PW=
                 -   SSCAN colors:1 0 COUNT 2 -> this gives the paginated data. 0 is the page number in here. 2 is the number of element to show in a page.
 
 *   -   Use cases for SETS of Redis:
-        -   Enforcing uniqueness of any value
-        -   Creating a relationship between different records
-        -   Finding common attributes between different things
-        -   General list of elements where order doesn't matter
+        -   Enforcing uniqueness of any value : suppose a user wants to register but in our cache we have the user already registered.
+        -   Creating a relationship between different records: 
+        -   Finding common attributes between different things: SINTER to see the common items liked by 2 users.
+        -   General list of elements where order doesn't matter: 

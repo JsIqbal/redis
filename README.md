@@ -314,7 +314,11 @@ REDIS_PW=
 
 ---
 
-### Section 10: Sorted SET
+### Section 10: Implementing sets
+
+---
+
+### Section 11: Sorted SET
 
 -   Redis has a special feature called Sorted set
 
@@ -358,6 +362,9 @@ REDIS_PW=
         -   `ZINCRBY` adjusts the score of an existing member-score pair: `ZINCRBY products 15 cpu` => "60"
             -   Provide a negative number to subtract from a score: `ZINCRBY products -15 cpu` => "30"
             -   New key with value can also be added using `ZINCRBY`: `ZINCRBY products -15 x` => "-15"
-        -   `ZRANGE`   Filter the set and find value from 0-60 and limit the result from index 1-3: `ZRANGE products 0 60 BYSCORE LIMIT 0 3` => ["keyboard","cpu","power"]
-            -   also can be applied using `WITHSCORE` `-inf` `+inf` `(45` `45)` 
+        -   `ZRANGE` Filter the set and find value from 0-60 and limit the result from index 1-3: `ZRANGE products 0 60 BYSCORE LIMIT 0 3` => ["keyboard","cpu","power"]
+            -   also can be applied using `WITHSCORE` `-inf` `+inf` `(45` `45)`
             -   `REV`: will reverse the current set and after that will apply other commands to the set
+
+
+

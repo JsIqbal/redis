@@ -366,5 +366,9 @@ REDIS_PW=
             -   also can be applied using `WITHSCORE` `-inf` `+inf` `(45` `45)`
             -   `REV`: will reverse the current set and after that will apply other commands to the set
 
+---
 
+### Section 12: Sorted SET Implementation
 
+-   Sorted set are needed for relationships between different sets in redis
+-   By using sorted set we can achieve Normalization of DB in Redis

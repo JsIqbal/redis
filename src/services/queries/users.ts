@@ -3,7 +3,25 @@ import { client } from "$services/redis";
 import type { CreateUserAttrs } from "$services/types";
 import { genId } from "$services/utils";
 
-export const getUserByUsername = async (username: string) => {};
+export const getUserByUsername = async (username: string) => {
+    // use username variable
+    // look up if we can find the decimal id of the user
+    const decimalId = await client.zScore(usernamesKey(), username);
+
+    // check if there is an id
+    if (!decimalId) {
+        throw new Error("User does not exist!");
+    }
+
+    // convert the decimal to base16
+    const id = decimalId.toString(16);
+
+    // find the user
+    const user = await client.hGetAll(usersKey(id));
+
+    // deserialize the user and return
+    return deserialize(id, user);
+};
 
 export const getUserById = async (id: string) => {
     const user = await client.hGetAll(usersKey(id));
@@ -19,7 +37,7 @@ export const createUser = async (attrs: CreateUserAttrs) => {
 
     await client.hSet(usersKey(id), serialize(attrs));
     await client.sAdd(usernamesUniqueKey(), attrs.username);
-    await client.zAdd(usernamesUniqueKey(), {
+    await client.zAdd(usernamesKey(), {
         value: attrs.username,
         score: parseInt(id, 16), // we converted a base 16 to a base 10 by implementing the parInt function
     });

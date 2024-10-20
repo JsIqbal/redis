@@ -381,13 +381,13 @@ REDIS_PW=
 - Normally a hash stores data as key value pair.
 - A sorted set stores as members and score.
 
-* but a SCORE data structure in redis sorts using the members of the set, sorted set or list!
+* but a `SCORE` data structure in redis sorts using the members of the `set`, `sorted set` or `list`!
 
 - first create some sets and sorted sets:
 ```bash
     HSET books:good title 'Good Book' year 1950 
     HSET books:bad title 'Bad Book' year 1930 
-    HSET books:ok title 'Ok Book' year 1940 
+    HSET books:ok title 'Ok Book' year 1940  
 
     ZADD books:likes 999 good 
     ZADD books:likes 0 bad 
@@ -422,20 +422,111 @@ then apply ->
         - create a volatile set with key value structure like: 
 ```bash
 good - 1950
-bad - 1920
-ok - 1960
+bad - 1930
+ok - 1940
 ```
         - BY means sort the set by descending order like:
 ```bash
-bad - 1920
+bad - 1930
+ok - 1940
 good - 1950
-ok - 1960
 ```
 response from redis:
 ```bash
 [
   "bad",
-  "good",
-  "ok"
+  "ok",
+  "good"
 ]
 ```
+
+-   `SORT books:likes BY books:*->year GET books:*->title` : 
+    * breakdown of the command:
+        - first replace the * with the member from the sorted set : books:good
+        - scan redis for the key books:good
+        - if the key exists then find the value with the year: books:good has year 1950 in it.
+        - create a volatile set with key value structure like: 
+```bash
+good - 1950
+bad - 1930
+ok - 1940
+```
+  - BY means sort the set by descending order like:
+```bash
+bad - 1930
+ok - 1940
+good - 1950
+```
+
+  - `GET books:*->title`:
+    - again scan redis and find the books:good and return the title of the book
+    - use sorting criteria from BY year
+
+response from redis:
+```bash
+[
+  "Bad Book",
+  "Ok Book",
+  "Good Book"
+]
+```
+* More examples:
+```bash
+SORT books:likes BY books:*->year 
+    GET books:*->title
+    GET books:*->year 
+```
+- response:
+```bash
+[
+  "Bad Book",
+  "1930",
+  "Ok Book",
+  "1940",
+  "Good Book",
+  "1950"
+]
+```
+
+* in here # means also give the name of the member with associated record
+```bash
+SORT books:likes BY books:*->year 
+    GET #
+    GET books:*->title
+    GET books:*->year 
+```
+- response:
+```bash
+[
+  "bad",
+  "Bad Book",
+  "1930",
+  "ok",
+  "Ok Book",
+  "1940",
+  "good",
+  "Good Book",
+  "1950"
+]
+```
+
+* in here `nosort` means give the associated record but not based on any sorting criteria:
+```bash
+SORT books:likes BY nosort
+    GET #
+    GET books:*->title
+    GET books:*->year 
+```
+- response:
+```bash
+[
+  "bad",
+  "Bad Book",
+  "1930",
+  "ok",
+  "Ok Book",
+  "1940",
+  "good",
+  "Good Book",
+  "1950"
+]

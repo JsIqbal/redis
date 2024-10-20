@@ -377,4 +377,39 @@ REDIS_PW=
 
 ### Section 13: Sort Data structure
 
-- A special kind of data structure in redis
+- A special kind of data structure in redis. 
+- Normally a hash stores data as key value pair.
+- A sorted set stores as members and score.
+
+* but a SCORE data structure in redis sorts using the members of the set, sorted set or list!
+
+- first create some sets and sorted sets:
+```bash
+    HSET books:good title 'Good Book' year 1950 
+    HSET books:bad title 'Bad Book' year 1930 
+    HSET books:ok title 'Ok Book' year 1940 
+
+    ZADD books:likes 999 good 
+    ZADD books:likes 0 bad 
+    ZADD books:likes 40 ok 
+```
+
+then apply ->
+-   SORT:
+
+-   `SORT books:likes ALPHA` : stores the members of the sorted set alphabetically and sends back the response: 
+```bash
+[
+  "bad",
+  "good",
+  "ok"
+]
+```
+
+-   `SORT books:likes LIMIT 1 2 ALPHA` : stores the members of the sorted set alphabetically and sends back the response, skip the first element and give the next 2 element of the sort: 
+```bash
+[
+  "bad",
+  "good",
+  "ok"
+]

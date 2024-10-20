@@ -413,3 +413,29 @@ then apply ->
   "good",
   "ok"
 ]
+```
+-   `SORT books:likes BY books:*->year ` : 
+    * breakdown of the command:
+        - first replace the * with the member from the sorted set : books:good
+        - scan redis for the key books:good
+        - if the key exists then find the value with the year: books:good has year 1950 in it.
+        - create a volatile set with key value structure like: 
+```bash
+good - 1950
+bad - 1920
+ok - 1960
+```
+        - BY means sort the set by descending order like:
+```bash
+bad - 1920
+good - 1950
+ok - 1960
+```
+response from redis:
+```bash
+[
+  "bad",
+  "good",
+  "ok"
+]
+```

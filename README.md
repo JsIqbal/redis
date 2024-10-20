@@ -372,3 +372,9 @@ REDIS_PW=
 
 -   Sorted set are needed for relationships between different sets in redis
 -   By using sorted set we can achieve Normalization of DB in Redis
+
+---
+
+### Section 13: Sort Data structure
+
+- A special kind of data structure in redis

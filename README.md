@@ -377,27 +377,30 @@ REDIS_PW=
 
 ### Section 13: Sort Data structure
 
-- A special kind of data structure in redis. 
-- Normally a hash stores data as key value pair.
-- A sorted set stores as members and score.
+-   A special kind of data structure in redis.
+-   Normally a hash stores data as key value pair.
+-   A sorted set stores as members and score.
 
-* but a `SCORE` data structure in redis sorts using the members of the `set`, `sorted set` or `list`!
+*   but a `SCORE` data structure in redis sorts using the members of the `set`, `sorted set` or `list`!
 
-- first create some sets and sorted sets:
+-   first create some sets and sorted sets:
+
 ```bash
-    HSET books:good title 'Good Book' year 1950 
-    HSET books:bad title 'Bad Book' year 1930 
-    HSET books:ok title 'Ok Book' year 1940  
+    HSET books:good title 'Good Book' year 1950
+    HSET books:bad title 'Bad Book' year 1930
+    HSET books:ok title 'Ok Book' year 1940
 
-    ZADD books:likes 999 good 
-    ZADD books:likes 0 bad 
-    ZADD books:likes 40 ok 
+    ZADD books:likes 999 good
+    ZADD books:likes 0 bad
+    ZADD books:likes 40 ok
 ```
 
 then apply ->
+
 -   SORT:
 
--   `SORT books:likes ALPHA` : stores the members of the sorted set alphabetically and sends back the response: 
+-   `SORT books:likes ALPHA` : stores the members of the sorted set alphabetically and sends back the response:
+
 ```bash
 [
   "bad",
@@ -406,32 +409,38 @@ then apply ->
 ]
 ```
 
--   `SORT books:likes LIMIT 1 2 ALPHA` : stores the members of the sorted set alphabetically and sends back the response, skip the first element and give the next 2 element of the sort: 
+-   `SORT books:likes LIMIT 1 2 ALPHA` : stores the members of the sorted set alphabetically and sends back the response, skip the first element and give the next 2 element of the sort:
+
 ```bash
 [
-  "bad",
   "good",
   "ok"
 ]
 ```
--   `SORT books:likes BY books:*->year ` : 
-    * breakdown of the command:
-        - first replace the * with the member from the sorted set : books:good
-        - scan redis for the key books:good
-        - if the key exists then find the value with the year: books:good has year 1950 in it.
-        - create a volatile set with key value structure like: 
+
+-   `SORT books:likes BY books:*->year ` :
+    -   breakdown of the command:
+        -   first replace the \* with the member from the sorted set : books:good
+        -   scan redis for the key books:good
+        -   if the key exists then find the value with the year: books:good has year 1950 in it.
+        -   create a volatile set with key value structure like:
+
 ```bash
 good - 1950
 bad - 1930
 ok - 1940
 ```
+
         - BY means sort the set by descending order like:
+
 ```bash
 bad - 1930
 ok - 1940
 good - 1950
 ```
+
 response from redis:
+
 ```bash
 [
   "bad",
@@ -440,29 +449,33 @@ response from redis:
 ]
 ```
 
--   `SORT books:likes BY books:*->year GET books:*->title` : 
-    * breakdown of the command:
-        - first replace the * with the member from the sorted set : books:good
-        - scan redis for the key books:good
-        - if the key exists then find the value with the year: books:good has year 1950 in it.
-        - create a volatile set with key value structure like: 
+-   `SORT books:likes BY books:*->year GET books:*->title` :
+    -   breakdown of the command:
+        -   first replace the \* with the member from the sorted set : books:good
+        -   scan redis for the key books:good
+        -   if the key exists then find the value with the year: books:good has year 1950 in it.
+        -   create a volatile set with key value structure like:
+
 ```bash
 good - 1950
 bad - 1930
 ok - 1940
 ```
-  - BY means sort the set by descending order like:
+
+-   BY means sort the set by descending order like:
+
 ```bash
 bad - 1930
 ok - 1940
 good - 1950
 ```
 
-  - `GET books:*->title`:
-    - again scan redis and find the books:good and return the title of the book
-    - use sorting criteria from BY year
+-   `GET books:*->title`:
+    -   again scan redis and find the books:good and return the title of the book
+    -   use sorting criteria from BY year
 
 response from redis:
+
 ```bash
 [
   "Bad Book",
@@ -470,13 +483,17 @@ response from redis:
   "Good Book"
 ]
 ```
-* More examples:
+
+-   More examples:
+
 ```bash
-SORT books:likes BY books:*->year 
+SORT books:likes BY books:*->year
     GET books:*->title
-    GET books:*->year 
+    GET books:*->year
 ```
-- response:
+
+-   response:
+
 ```bash
 [
   "Bad Book",
@@ -488,14 +505,17 @@ SORT books:likes BY books:*->year
 ]
 ```
 
-* in here # means also give the name of the member with associated record
+-   in here # means also give the name of the member with associated record
+
 ```bash
-SORT books:likes BY books:*->year 
+SORT books:likes BY books:*->year
     GET #
     GET books:*->title
-    GET books:*->year 
+    GET books:*->year
 ```
-- response:
+
+-   response:
+
 ```bash
 [
   "bad",
@@ -510,14 +530,17 @@ SORT books:likes BY books:*->year
 ]
 ```
 
-* in here `nosort` means give the associated record but not based on any sorting criteria:
+-   in here `nosort` means give the associated record but not based on any sorting criteria:
+
 ```bash
 SORT books:likes BY nosort
     GET #
     GET books:*->title
-    GET books:*->year 
+    GET books:*->year
 ```
-- response:
+
+-   response:
+
 ```bash
 [
   "bad",
@@ -530,3 +553,6 @@ SORT books:likes BY nosort
   "Good Book",
   "1950"
 ]
+```
+
+-   SORT has some more options attached to it. You should checkout the .d.ts file of the command!

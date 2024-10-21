@@ -7,8 +7,13 @@ export const itemsByViews = async (
     count = 10
 ) => {
     const results = await client.sort(itemsByViewsKey(), {
-        GET: ['#', `${itemsKey('*')}->name`, `${itemsKey('*')}->views`],
-        BY: 'score',
+        GET: ["#", `${itemsKey("*")}->name`, `${itemsKey("*")}->views`],
+        BY: "score",
+        DIRECTION: order,
+        LIMIT: {
+            offset: offset,
+            count: count,
+        },
     });
 
     console.log(results);

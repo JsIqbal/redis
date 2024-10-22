@@ -556,3 +556,12 @@ SORT books:likes BY nosort
 ```
 
 -   SORT has some more options attached to it. You should checkout the .d.ts file of the command!
+
+---
+
+### Section 14: HyperLogLog data structure
+
+-   This is a data structure that remembers a value under a key by using complex algorithm but not storing the data.
+
+    -   `PFADD` Adds a string value under a key: `PFADD vegetable celery` => 1 `e.g: 0 if already exists`
+    -   `PFCOUNT` Tells how many value are there in a key: `PFCOUNT vegetable` => 1 `e.g: 0 if already exists`

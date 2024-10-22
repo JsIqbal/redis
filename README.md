@@ -565,3 +565,8 @@ SORT books:likes BY nosort
 
     -   `PFADD` Adds a string value under a key: `PFADD vegetable celery` => 1 `e.g: 0 if already exists`
     -   `PFCOUNT` Tells how many value are there in a key: `PFCOUNT vegetable` => 1 `e.g: 0 if already exists`
+
+*   use cases:
+    -   remembering how many view a product or item has
+    -   using in types of data that are not so important to be consistent
+    -   only 12kb ob static memory for even millions of view for an item.

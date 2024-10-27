@@ -570,3 +570,12 @@ SORT books:likes BY nosort
     -   remembering how many view a product or item has
     -   using in types of data that are not so important to be consistent
     -   only 12kb ob static memory for even millions of view for an item.
+
+---
+
+### Section 15: List data structure
+
+-   This is not an array
+-   This is a doubly linked list
+
+Typically we use list to keep time series data or data in order like : weather data.
